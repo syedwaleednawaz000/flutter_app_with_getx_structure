@@ -9,6 +9,8 @@ class AppTranslations extends Translations {
     'en_US': {
       'app_name': 'Structure App',
       'welcome': 'Welcome',
+      'welcome_back': 'Welcome Back!',
+      'sign_in_continue': 'Sign in to continue to your account',
       'login': 'Login',
       'logout': 'Logout',
       'email': 'Email',
@@ -98,10 +100,39 @@ class AppTranslations extends Translations {
       'gallery_permission': 'Gallery permission is required.',
       'location_permission': 'Location permission is required.',
       'microphone_permission': 'Microphone permission is required.',
+      'choose_an_option': 'Choose an option',
+      'enter_email': 'Enter your email address',
+      'enter_password': 'Enter your password',
+      'remember_me': 'Remember me',
+      'dont_have_account': "Don't have an account?",
+      'already_have_account': 'Already have an account?',
+      'email_too_long': 'Email is too long',
+      'password_too_long': 'Password is too long',
+      'invalid_email_or_password': 'Invalid email or password',
+      'enter_email_first': 'Please enter your email address first',
+      'reset_link_sent': 'Password reset link sent to your email',
+      'reset_link_will_sent': 'Reset link will be sent to',
+      'forgot_password_title': 'Forgot Password',
+      'error_title': 'Error',
+      'success_title': 'Success',
+      'login_successful': 'Login successful!',
+      'login_failed': 'Login failed',
+      'info_title': 'Info',
+      'signup_coming_soon': 'Sign up functionality coming soon',
+      'send_reset_link': 'Send Reset Link',
+      'current_language': 'Current Language',
+      'or': 'OR',
+      'demo_credentials': 'Demo Credentials',
+      'demo_credentials_info': 'Admin: admin@example.com / password123\nUser: user@example.com / password123',
+      'welcome_user': 'Welcome, User',
+      'app_tagline': 'Building the future, one structure at a time',
+      'page_not_found': 'Page not found',
     },
-    'ar_AR': {
+    'ar_SA': {
       'app_name': 'تطبيق البنية',
       'welcome': 'مرحباً',
+      'welcome_back': 'مرحباً بعودتك!',
+      'sign_in_continue': 'سجل دخولك للمتابعة إلى حسابك',
       'login': 'تسجيل الدخول',
       'logout': 'تسجيل الخروج',
       'email': 'البريد الإلكتروني',
@@ -191,6 +222,33 @@ class AppTranslations extends Translations {
       'gallery_permission': 'إذن المعرض مطلوب.',
       'location_permission': 'إذن الموقع مطلوب.',
       'microphone_permission': 'إذن الميكروفون مطلوب.',
+      'choose_an_option': 'اختر خياراً',
+      'enter_email': 'أدخل عنوان بريدك الإلكتروني',
+      'enter_password': 'أدخل كلمة المرور',
+      'remember_me': 'تذكرني',
+      'dont_have_account': 'ليس لديك حساب؟',
+      'already_have_account': 'لديك حساب بالفعل؟',
+      'email_too_long': 'البريد الإلكتروني طويل جداً',
+      'password_too_long': 'كلمة المرور طويلة جداً',
+      'invalid_email_or_password': 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
+      'enter_email_first': 'الرجاء إدخال عنوان بريدك الإلكتروني أولاً',
+      'reset_link_sent': 'رابط إعادة تعيين كلمة المرور أرسل إلى بريدك الإلكتروني',
+      'reset_link_will_sent': 'سيتم إرسال رابط الإعادة إلى',
+      'forgot_password_title': 'نسيت كلمة المرور',
+      'error_title': 'خطأ',
+      'success_title': 'نجاح',
+      'login_successful': 'تم تسجيل الدخول بنجاح!',
+      'login_failed': 'فشل تسجيل الدخول',
+      'info_title': 'معلومات',
+      'signup_coming_soon': 'وظيفة إنشاء الحساب ستصبح قادرة على العمل قريباً',
+      'send_reset_link': 'إرسال رابط إعادة التعيين',
+      'current_language': 'اللغة الحالية',
+      'or': 'أو',
+      'demo_credentials': 'بيانات العرض التوضيحي',
+      'demo_credentials_info': 'المسؤول: admin@example.com / password123\nالمستخدم: user@example.com / password123',
+      'welcome_user': 'مرحباً بك، المستخدم',
+      'app_tagline': 'تطبيق البنية: إنشاء المستقبل، عطاء إطارًا واحدًا في كل مرة',
+      'page_not_found': 'الصفحة غير موجودة',
     },
   };
 }
@@ -205,8 +263,9 @@ class TranslationService extends GetxService {
   // Supported locales
   static const List<Locale> supportedLocales = [
     Locale('en', 'US'),
-    Locale('ar', 'AR'),
+    Locale('ar', 'SA'),
   ];
+
   
   // Fallback locale
   static const Locale fallbackLocale = Locale('en', 'US');
@@ -227,8 +286,7 @@ class TranslationService extends GetxService {
   }
   
   bool _isLanguageSupported(String languageCode) {
-    return supportedLocales.any((locale) => 
-      '${locale.languageCode}_${locale.countryCode}' == languageCode);
+    return languageCode == 'en_US' || languageCode == 'ar_SA';
   }
   
   void changeLanguage(String languageCode) {
@@ -236,20 +294,35 @@ class TranslationService extends GetxService {
       languageCode = _defaultLanguage;
     }
     
-    final List<String> parts = languageCode.split('_');
-    if (parts.length == 2) {
-      final Locale newLocale = Locale(parts[0], parts[1]);
-      Get.updateLocale(newLocale);
-      _storage.write(_storageKey, languageCode);
+    Locale newLocale;
+    if (languageCode == 'ar_SA') {
+      newLocale = const Locale('ar', 'SA');
+    } else {
+      newLocale = const Locale('en', 'US');
     }
+    
+    Get.updateLocale(newLocale);
+    _storage.write(_storageKey, languageCode);
   }
   
   String getCurrentLanguage() {
     final Locale? currentLocale = Get.locale;
     if (currentLocale != null) {
-      return '${currentLocale.languageCode}_${currentLocale.countryCode}';
+      if (currentLocale.languageCode == 'ar' && currentLocale.countryCode == 'SA') {
+        return 'ar_SA';
+      } else if (currentLocale.languageCode == 'en' && currentLocale.countryCode == 'US') {
+        return 'en_US';
+      }
     }
     return _defaultLanguage;
+  }
+  
+  Locale getCurrentLocale() {
+    final Locale? currentLocale = Get.locale;
+    if (currentLocale != null) {
+      return currentLocale;
+    }
+    return fallbackLocale;
   }
   
   bool isRTL() {
@@ -259,35 +332,48 @@ class TranslationService extends GetxService {
     }
     return false;
   }
-  
+
   void toggleLanguage() {
     final String currentLanguage = getCurrentLanguage();
     if (currentLanguage == 'en_US') {
-      changeLanguage('ar_AR');
+      changeLanguage('ar_SA');
     } else {
       changeLanguage('en_US');
     }
   }
-  
+
+
   String getLanguageName(String languageCode) {
     switch (languageCode) {
       case 'en_US':
         return 'English';
-      case 'ar_AR':
+      case 'ar_SA':
         return 'العربية';
       default:
         return 'English';
     }
   }
-  
+
+
   String getLanguageNativeName(String languageCode) {
     switch (languageCode) {
       case 'en_US':
         return 'English';
-      case 'ar_AR':
+      case 'ar_SA':
         return 'العربية';
       default:
         return 'English';
+
     }
+  }
+  
+  String getCurrentLanguageDisplayName() {
+    final String currentLanguage = getCurrentLanguage();
+    return getLanguageName(currentLanguage);
+  }
+  
+  String getCurrentLanguageNativeName() {
+    final String currentLanguage = getCurrentLanguage();
+    return getLanguageNativeName(currentLanguage);
   }
 }

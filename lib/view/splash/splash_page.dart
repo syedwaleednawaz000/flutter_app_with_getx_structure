@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     
     // Navigate to login page
     if (mounted) {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/home');
     }
   }
 
@@ -138,7 +138,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 return FadeTransition(
                   opacity: _fadeAnimation,
                   child: Text(
-                    'Building the future, one structure at a time',
+                    'app_tagline'.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
                     ),
@@ -170,7 +170,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Loading...',
+                        'loading'.tr,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
                         ),
@@ -190,7 +190,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 return FadeTransition(
                   opacity: _fadeAnimation,
                   child: Text(
-                    'Version ${AppConstants.appVersion}',
+                    '${'version'.tr} ${AppConstants.appVersion}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:structure/controllers/login_controller.dart';
+import 'package:structure/view/login/login_controller.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
 
@@ -48,7 +48,7 @@ class LoginPage extends GetView<LoginController> {
               
               // Welcome Text
               Text(
-                'Welcome Back!',
+                'welcome_back'.tr,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onBackground,
@@ -59,7 +59,7 @@ class LoginPage extends GetView<LoginController> {
               const SizedBox(height: 8),
               
               Text(
-                'Sign in to continue to your account',
+                'sign_in_continue'.tr,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
                 ),
@@ -76,8 +76,8 @@ class LoginPage extends GetView<LoginController> {
                     // Email Field
                     Obx(() => CustomTextField(
                       controller: controller.emailController,
-                      labelText: 'Email',
-                      hintText: 'Enter your email address',
+                      labelText: 'email'.tr,
+                      hintText: 'enter_email'.tr,
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -99,19 +99,20 @@ class LoginPage extends GetView<LoginController> {
                     // Password Field
                     Obx(() => CustomTextField(
                       controller: controller.passwordController,
-                      labelText: 'Password',
-                      hintText: 'Enter your password',
+                      labelText: 'password'.tr,
+                      hintText: 'enter_password'.tr,
                       prefixIcon: Icons.lock_outlined,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
+                      obscureText: !controller.isPasswordVisible.value,
                       suffixIcon: IconButton(
+                        onPressed: controller.togglePasswordVisibility,
                         icon: Icon(
                           controller.isPasswordVisible.value
                               ? Icons.visibility_off
                               : Icons.visibility,
                         ),
-                        onPressed: controller.togglePasswordVisibility,
                       ),
-                      obscureText: !controller.isPasswordVisible.value,
-                      textInputAction: TextInputAction.done,
                       errorText: controller.passwordError.value.isNotEmpty 
                           ? controller.passwordError.value 
                           : null,
@@ -140,7 +141,7 @@ class LoginPage extends GetView<LoginController> {
                               activeColor: Theme.of(context).colorScheme.primary,
                             ),
                             Text(
-                              'Remember me',
+                              'remember_me'.tr,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
@@ -150,7 +151,7 @@ class LoginPage extends GetView<LoginController> {
                         TextButton(
                           onPressed: controller.forgotPassword,
                           child: Text(
-                            'Forgot Password?',
+                            'forgot_password'.tr,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                             ),
@@ -175,13 +176,13 @@ class LoginPage extends GetView<LoginController> {
                                 ),
                               ),
                             )
-                          : const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                          : Text(
+                               'login'.tr,
+                               style: const TextStyle(
+                                 fontSize: 16,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
                     )),
                     
                     const SizedBox(height: 20),
@@ -228,7 +229,7 @@ class LoginPage extends GetView<LoginController> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
-                            'OR',
+                            'or'.tr,
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
                             ),
@@ -245,7 +246,7 @@ class LoginPage extends GetView<LoginController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account? ",
+                          'dont_have_account'.tr,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
                           ),
@@ -253,7 +254,7 @@ class LoginPage extends GetView<LoginController> {
                         TextButton(
                           onPressed: controller.signUp,
                           child: Text(
-                            'Sign Up',
+                            'sign_up'.tr,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w600,
@@ -290,7 +291,7 @@ class LoginPage extends GetView<LoginController> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          'Demo Credentials',
+                          'demo_credentials'.tr,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w600,
@@ -300,7 +301,7 @@ class LoginPage extends GetView<LoginController> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Admin: admin@example.com / password123\nUser: user@example.com / password123',
+                      'demo_credentials_info'.tr,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
                       ),

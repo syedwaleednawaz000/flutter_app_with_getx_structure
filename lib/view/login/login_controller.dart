@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../data/models/user_model.dart';
-import '../data/repository/user_repository.dart';
-import '../config/app_constants.dart';
+import 'package:structure/config/app_constants.dart';
+
+
+
 
 class LoginController extends GetxController {
-  final UserRepository _userRepository = Get.find<UserRepository>();
+  // final UserRepository _userRepository = Get.find<UserRepository>();
   
   // Form controllers
   final TextEditingController emailController = TextEditingController();
@@ -65,20 +66,20 @@ class LoginController extends GetxController {
   // Validate email
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      emailError.value = 'Email is required';
-      return 'Email is required';
+      emailError.value = 'email_required'.tr;
+      return 'email_required'.tr;
     }
     
     if (value.length > AppConstants.maxEmailLength) {
-      emailError.value = 'Email is too long';
-      return 'Email is too long';
+      emailError.value = 'email_too_long'.tr;
+      return 'email_too_long'.tr;
     }
     
     // Basic email validation
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
-      emailError.value = 'Please enter a valid email address';
-      return 'Please enter a valid email address';
+      emailError.value = 'email_invalid'.tr;
+      return 'email_invalid'.tr;
     }
     
     emailError.value = '';
@@ -88,18 +89,13 @@ class LoginController extends GetxController {
   // Validate password
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      passwordError.value = 'Password is required';
-      return 'Password is required';
+      passwordError.value = 'password_required'.tr;
+      return 'password_required'.tr;
     }
     
     if (value.length < AppConstants.minPasswordLength) {
-      passwordError.value = 'Password must be at least ${AppConstants.minPasswordLength} characters';
-      return 'Password must be at least ${AppConstants.minPasswordLength} characters';
-    }
-    
-    if (value.length > AppConstants.maxPasswordLength) {
-      passwordError.value = 'Password is too long';
-      return 'Password is too long';
+      passwordError.value = 'password_min_length'.tr;
+      return 'password_min_length'.tr;
     }
     
     passwordError.value = '';
@@ -123,19 +119,9 @@ class LoginController extends GetxController {
     try {
       isLoading.value = true;
       errorMessage.value = '';
-      
-      // Clear previous errors
       emailError.value = '';
       passwordError.value = '';
-      
-      // Simulate API call (replace with actual login logic)
       await Future.delayed(const Duration(seconds: 2));
-      
-      // TODO: Implement actual login API call
-      // final response = await _authRepository.login(
-      //   email: emailController.text.trim(),
-      //   password: passwordController.text,
-      // );
       
       // For now, simulate successful login
       final success = await _simulateLogin();
@@ -149,18 +135,18 @@ class LoginController extends GetxController {
         
         // Show success message
         Get.snackbar(
-          'Success',
-          'Login successful!',
+          'success_title'.tr,
+          'login_successful'.tr,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
       } else {
-        errorMessage.value = 'Invalid email or password';
+        errorMessage.value = 'invalid_credentials'.tr;
       }
       
     } catch (e) {
-      errorMessage.value = 'Login failed: $e';
+      errorMessage.value = '${'login_failed'.tr}: $e';
     } finally {
       isLoading.value = false;
     }
@@ -168,28 +154,15 @@ class LoginController extends GetxController {
   
   // Simulate login (replace with actual API call)
   Future<bool> _simulateLogin() async {
-    // Simple validation for demo purposes
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-    
-    // Demo credentials (replace with actual authentication)
-    if (email == 'admin@example.com' && password == 'password123') {
-      return true;
-    }
-    
-    if (email == 'user@example.com' && password == 'password123') {
-      return true;
-    }
-    
-    return false;
+    return true;
   }
   
   // Forgot password
   Future<void> forgotPassword() async {
     if (emailController.text.isEmpty) {
       Get.snackbar(
-        'Error',
-        'Please enter your email address first',
+        'error_title'.tr,
+        'enter_email_first'.tr,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.orange,
         colorText: Colors.white,
@@ -198,28 +171,31 @@ class LoginController extends GetxController {
     }
     
     // TODO: Implement forgot password functionality
-    Get.dialog(
-      await Get.defaultDialog(
-        title: 'Forgot Password',
-        content: Text('Reset link will be sent to ${emailController.text}'),
-        confirm: TextButton(
-          onPressed: () {
-            Get.back();
-            Get.snackbar(
-              'Success',
-              'Password reset link sent to your email',
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green,
-              colorText: Colors.white,
-            );
-          },
-          child: const Text('Send Reset Link'),
-        ),
-        cancel: TextButton(
-          onPressed: () => Get.back(),
-          child: const Text('Cancel'),
-        ),
+    await Get.defaultDialog(
+      title: 'forgot_password_title'.tr,
+      content: Text('${'reset_link_will_sent'.tr} ${emailController.text}'),
+      confirm: TextButton(
+        onPressed: () {
+          Get.back();
+          _sendPasswordResetEmail();
+        },
+        child: Text('send_reset_link'.tr),
       ),
+      cancel: TextButton(
+        onPressed: () => Get.back(),
+        child: Text('cancel'.tr),
+      ),
+    );
+  }
+  
+  // Send password reset email
+  void _sendPasswordResetEmail() {
+    Get.snackbar(
+      'success_title'.tr,
+      'reset_link_sent'.tr,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
     );
   }
   
@@ -227,8 +203,8 @@ class LoginController extends GetxController {
   void signUp() {
     // TODO: Navigate to sign up page
     Get.snackbar(
-      'Info',
-      'Sign up functionality coming soon',
+      'info_title'.tr,
+      'signup_coming_soon'.tr,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.blue,
       colorText: Colors.white,

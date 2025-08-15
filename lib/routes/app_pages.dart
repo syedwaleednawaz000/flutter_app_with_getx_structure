@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
-import '../ui/pages/home_page.dart';
-import '../ui/pages/login_page.dart';
-import '../ui/pages/splash_page.dart';
-import '../bindings/home_binding.dart';
-import '../bindings/login_binding.dart';
-import '../config/app_routes.dart';
+import 'package:structure/view/home/home_page.dart';
+import 'package:structure/view/login/login_page.dart';
+import 'package:structure/view/splash/splash_page.dart';
+
+
+import '../view/home/home_binding.dart';
+import '../view/login/login_binding.dart';
+import 'app_routes.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
