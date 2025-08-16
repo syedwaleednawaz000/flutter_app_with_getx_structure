@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
-import 'package:structure/view/home/home_page.dart';
-import 'package:structure/view/login/login_page.dart';
-import 'package:structure/view/splash/splash_page.dart';
+import 'package:structure/presentation/home/view/home_page.dart';
+import 'package:structure/presentation/login/view/login_page.dart';
+import 'package:structure/presentation/splash/binding/splash_binding.dart';
+import 'package:structure/presentation/splash/view/splash_page.dart';
 
 
-import '../view/home/home_binding.dart';
-import '../view/login/login_binding.dart';
+import '../presentation//home/binding/home_binding.dart';
+import '../presentation/login/binding/login_binding.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -15,6 +16,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.splash,
       page: () => const SplashPage(),
+      binding: SplashBinding(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
     ),

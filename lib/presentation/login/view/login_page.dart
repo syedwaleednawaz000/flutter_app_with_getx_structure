@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:structure/view/login/login_controller.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_textfield.dart';
+import 'package:structure/presentation/login/controller/login_controller.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_textfield.dart';
 
 
 class LoginPage extends GetView<LoginController> {

@@ -37,13 +37,15 @@ dependencies:
   get: ^4.6.6
   
   # HTTP client for API calls
-  http: ^1.1.0
+#  http: ^1.1.0
+  dio: ^5.9.0
   
   # Shared preferences for local storage
   shared_preferences: ^2.2.2
   
   # Get storage for persistent storage
   get_storage: ^2.1.1
+  fluttertoast: ^8.2.12
   
   # Logger for debugging
   logger: ^2.0.2+1

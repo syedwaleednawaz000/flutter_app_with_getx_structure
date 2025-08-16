@@ -1,4 +1,6 @@
 class AppConstants {
+  static String saveUserToken = "token";
+  static bool? themeValue = false;
   // App Information
   static const String appName = 'Structure App';
   static const String appVersion = '1.0.0';

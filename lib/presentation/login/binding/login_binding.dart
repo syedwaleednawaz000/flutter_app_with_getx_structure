@@ -1,13 +1,9 @@
 import 'package:get/get.dart';
-import 'package:structure/view/login/login_controller.dart';
-import '../../data/provider/api_provider.dart';
-
-
+import 'package:structure/presentation/login/controller/login_controller.dart';
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
     // Register API Provider
-    Get.lazyPut<ApiProvider>(() => ApiProvider());
     
 
     // Register Login Controller

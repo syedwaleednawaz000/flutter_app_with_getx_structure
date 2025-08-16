@@ -1,0 +1,1 @@
+// her you can define login response or user data model
